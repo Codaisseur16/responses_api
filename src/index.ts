@@ -1,12 +1,13 @@
 import 'reflect-metadata'
 import {createKoaServer} from "routing-controllers"
 import setupDb from './db'
+import ResponsesController from './responses/controller'
 
 const port = process.env.PORT || 4008
 
 const app = createKoaServer({
   controllers: [
-    //..
+    ResponsesController
   ]
 })
 
