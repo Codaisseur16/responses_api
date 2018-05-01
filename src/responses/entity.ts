@@ -7,15 +7,15 @@ export default class Responses extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number
 
-  @Column('text')
+  @Column('int')
   user_id: number
 
-  @Column('text')
+  @Column('int')
   quiz_id: number
 
-  @Column('json')
+  @Column('json', {nullable:true})
   answers: JSON
 
-  @Column('text')
+  @Column('int')
   score: number
 }
