@@ -1,5 +1,5 @@
 import {JsonController, Get, Post, HttpCode, Param, Body } from 'routing-controllers'
-import {Responses} from './entity'
+import Responses from './entity'
 
 
 @JsonController()
@@ -23,7 +23,7 @@ async allResponses(){
 getResponse(
     @Param('id') id:number
 ){
-    return Responses.findOne(id)
+    return Responses.findOneById(id)
 }
 
 @Post('/responses/score')
@@ -40,11 +40,11 @@ async allAnswers(){
     return {answers}
 }
 
-@Get('/responses/score/:id')
+@Get('/responses/:id/score')
 getAnswer(
     @Param('id') id:number
 ){
-    return Responses.findOne(id)
+    return Responses.findOneById(id)
 }
 
 }
