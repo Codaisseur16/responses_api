@@ -1,50 +1,50 @@
 import {JsonController, Get, Post, HttpCode, Param, Body } from 'routing-controllers'
-import {Responses} from './entities'
+import {Responses} from './entity'
 
 
 @JsonController()
-export default class ResponseController {
+export default class ResponsesController {
 
 @Post('/responses')
 @HttpCode(201)
 createResponse(
-    @Body() response:Response
+    @Body() response:Responses
 ) {
     return response.save()
 }
 
 @Get('/responses')
 async allResponses(){
-    const responses = await Response.find()
+    const responses = await Responses.find()
     return {responses}
 }
 
-@Get('/responses/id')
+@Get('/responses/:id')
 getResponse(
     @Param('id') id:number
 ){
-    return response.findOne(id)
+    return Responses.findOne(id)
 }
 
-@Post('/anwsers')
+@Post('/responses/score')
 @HttpCode(201)
-createAnwser(
-    @Body() answer:Answer
+createScore(
+    @Body() answer:Responses
 ) {
     return answer.save()
 }
 
-@Get('/answers')
+@Get('/responses/score')
 async allAnswers(){
-    const answers = await Answer.find()
+    const answers = await Responses.find()
     return {answers}
 }
 
-@Get('/responses/id')
+@Get('/responses/score/:id')
 getAnswer(
     @Param('id') id:number
 ){
-    return answer.findOne(id)
+    return Responses.findOne(id)
 }
 
 }
