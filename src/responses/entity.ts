@@ -10,6 +10,9 @@ export default class Responses extends BaseEntity {
   @Column('int')
   user_id: number
 
+  @Column('boolean', {nullable:false})
+  teacher: boolean
+
   @Column('int')
   quiz_id: number
 
@@ -18,4 +21,7 @@ export default class Responses extends BaseEntity {
 
   @Column('int')
   score: number
+
+  
+  
 }
