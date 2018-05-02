@@ -47,5 +47,13 @@ getAnswer(
     return Responses.findOneById(id)
 }
 
+@Post('http://localhost:4004/postquizresult')
+@HttpCode(201)
+sendResponse(
+    @Body() response:Responses
+) {
+    return response.save()
+}
+
 }
 
