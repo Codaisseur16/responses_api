@@ -6,7 +6,7 @@ import ResponsesController from './responses/controller'
 const port = process.env.PORT || 4002
 
 const app = createKoaServer({
-  cors:true,
+  cors: true,
   controllers: [
     ResponsesController
   ]
