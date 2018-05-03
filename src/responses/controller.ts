@@ -27,6 +27,15 @@ async createResponse(
     }
     
 
+@Get('/responses/user/:user_id')
+getResponseUserId(
+    @Param('user_id') user_id:number
+){
+    return Responses.findOne({where: {user_id}})
+}
+
+
+
 @Get('/responses')
 async allResponses(){
     const responses = await Responses.find()
