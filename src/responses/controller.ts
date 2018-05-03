@@ -1,17 +1,31 @@
 import {JsonController, Get, Post, HttpCode, Param, Body } from 'routing-controllers'
 import Responses from './entity'
-
+import * as request from 'superagent'
 
 @JsonController()
 export default class ResponsesController {
 
 @Post('/responses')
 @HttpCode(201)
-createResponse(
-    @Body() response:Responses
+async createResponse(
+    @Body() response: Responses
 ) {
-    return response.save()
-}
+    
+    const responsetosend = {
+        user_id: response.user_id,
+        teacher: response.teacher,
+        quiz_id: response.quiz_id,
+        score: response.score
+    }
+        
+    return await request
+    .post('http://webhooks:4004/postquizresult/')
+    .send({qobject: responsetosend})
+    .then(response2=> {
+        response.save()
+        return response2.text})    
+    }
+    
 
 @Get('/responses')
 async allResponses(){
@@ -45,14 +59,6 @@ getAnswer(
     @Param('id') id:number
 ){
     return Responses.findOneById(id)
-}
-
-@Post('http://localhost:4004/postquizresult')
-@HttpCode(201)
-sendResponse(
-    @Body() response:Responses
-) {
-    return response.save()
 }
 
 }
