@@ -10,22 +10,31 @@ export default class ResponsesController {
 async createResponse(
     @Body() response: Responses
 ) {
-    
-    const responsetosend = {
+     await request
+    .post('http://users:4003/teacher/')
+    .send({id:Number(response.user_id)})
+    .then(response2 => {
+      const teacher = response2.body.user.teacher
+      if(teacher === true || teacher === null) {
+        throw new Error("User not allowed to save test results")
+      } else {
+        const responsetosend = {
         user_id: response.user_id,
         teacher: response.teacher,
         quiz_id: response.quiz_id,
         score: response.score
     }
-        
-    return await request
+
+    return request
     .post('http://webhooks:4004/postquizresult/')
     .send({qobject: responsetosend})
     .then(response2=> {
         response.save()
-        return response2.text})    
-    }
-    
+        return response2.text})
+      }
+    })
+  }
+
 
 @Get('/responses/user/:user_id')
 getResponseUserId(
@@ -70,5 +79,36 @@ getAnswer(
     return Responses.findOneById(id)
 }
 
+// @Post('/logins')
+// @HttpCode(201)
+// createScore(
+//     @Body() answer:{email,password}
+// ) {
+//     return answer
+// }
+
 }
 
+
+// import { JsonController, Body, Post, BadRequestError } from 'routing-controllers'
+// import User from '../entities/users'
+//
+// class AuthenticatePayload {
+//   id?:number
+// }
+//
+// @JsonController()
+// export default class LoginController {
+//
+//   @Post('/teacher')
+//   async authenticate(
+//     @Body() {id}: AuthenticatePayload
+//   ) {
+//     const user = await User.findOne({ where: { id } })
+//
+//     if (!user) throw new BadRequestError('A user with this id does not exist')
+//
+//     return {user}
+//   }
+//
+// }
