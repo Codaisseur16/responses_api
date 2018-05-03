@@ -13,6 +13,15 @@ createResponse(
     return response.save()
 }
 
+@Get('/responses/user/:user_id')
+getResponseUserId(
+    @Param('user_id') user_id:number
+){
+    return Responses.findOne({where: {user_id}})
+}
+
+
+
 @Get('/responses')
 async allResponses(){
     const responses = await Responses.find()
@@ -47,7 +56,8 @@ getAnswer(
     return Responses.findOneById(id)
 }
 
-@Post('http://localhost:4004/postquizresult')
+
+@Post('/postquizresult')
 @HttpCode(201)
 sendResponse(
     @Body() response:Responses
