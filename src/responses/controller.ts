@@ -129,11 +129,11 @@ getAnswer(
 //   id?: number
 //
 //   @IsString()
-//   @Column('text',  {nullable: true})
+//   @Column('text',  {default: null})
 //   firstName: string
 //
 //   @IsString()
-//   @Column('text',  {nullable: true})
+//   @Column('text',  {default: null})
 //   lastName: string
 //
 //   @IsEmail()
@@ -141,7 +141,7 @@ getAnswer(
 //   email: string
 //
 //   @IsString()
-//   @Column('text', {nullable: true})
+//   @Column('text', {nullable: false})
 //   @Exclude({ toPlainOnly: true })
 //   password: string
 //
